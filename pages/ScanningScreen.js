@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import {storeValue, getValue} from "../storageFuncs";
 
-const ScanningScreen = () => {
+const ScanningScreen = ({lang,setCardNum,setLang, setIsScanning}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -14,15 +15,27 @@ const ScanningScreen = () => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-  };
+    if(data.length == 13){
+        setCardNum(data);
+        storeValue('@cardNum', data);
+        setIsScanning(false);
+        setScanned(true);
+        alert(data);
+    } else {
+        alert("Hmm.. That code doesn't seem right, try again");
+    }
+    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+};
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return <Text>Requesting camera permission</Text>;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return (
+    <View>
+        <Text>No Camera? No Problem you can type in your card number down below</Text>
+    </View>
+        );
   }
 
   return (
@@ -41,3 +54,5 @@ const ScanningScreen = () => {
     </View>
   );
 }
+
+export default ScanningScreen

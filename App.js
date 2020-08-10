@@ -23,6 +23,8 @@ export default function App() {
   });
   if(!isScanning){
     return <MainScreen lang={lang} cardNum={cardNum} setLang={setLang} setIsScanning={setIsScanning}/>
+  } else {
+    return <ScanningScreen lang={lang} setCardNum={setCardNum} setLang={setLang} setIsScanning={setIsScanning}/>
   }
 }
 

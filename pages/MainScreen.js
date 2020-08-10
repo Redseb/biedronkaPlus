@@ -9,7 +9,7 @@ import {storeValue, getValue} from "../storageFuncs";
 const height=Dimensions.get('window').height;
 const width=Dimensions.get('window').width;
 
-const MainScreen = ({lang, cardNum}) => {
+const MainScreen = ({lang, cardNum, setIsScanning}) => {
 
   return (
     <View style={styles.container}>
@@ -20,8 +20,7 @@ const MainScreen = ({lang, cardNum}) => {
       <Card cardNumber={cardNum} pin={"123"} />
 
       <TouchableOpacity style={styles.button} onPress={()=>{
-        storeValue('@cardNum', "123456789222");
-        setCardNum("123456789222");
+        setIsScanning(true);
         }}>
         <Text>Add a new card</Text>
       </TouchableOpacity>
