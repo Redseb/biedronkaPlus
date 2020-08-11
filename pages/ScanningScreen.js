@@ -10,6 +10,7 @@ import {
 import { Camera } from "expo-camera";
 import { storeValue, getValue } from "../storageFuncs";
 import Card from "../components/Card";
+import LoadingIcon from "../components/LoadingIcon"
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -23,7 +24,7 @@ const ScanningScreen = ({
   const [hasPermission, setHasPermission] = useState(null);
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
@@ -38,7 +39,10 @@ const ScanningScreen = ({
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting camera permission</Text>;
+    return (<View style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <LoadingIcon />
+      <Text style={{ fontSize: height / 20 }}>Loading</Text>
+    </View>);
   }
   if (hasPermission === false) {
     return (
@@ -49,6 +53,12 @@ const ScanningScreen = ({
       </View>
     );
   }
+
+  // return (<View style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+  //   <LoadingIcon />
+
+  //   <Text style={{ fontSize: height / 20 }}>Loading</Text>
+  // </View>);
 
   return (
     <View style={styles.container}>
@@ -72,7 +82,7 @@ const ScanningScreen = ({
         style={styles.button}
         onPress={() => setIsScanning(false)}
       >
-        <Text>Back</Text>
+        <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
     </View>
   );
@@ -86,19 +96,29 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "#000000",
   },
+  loadingContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000000"
+  },
   button: {
     height: 50,
     padding: 20,
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 10,
     margin: 20,
     borderWidth: 1,
     borderColor: "#000000",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "#f2eb8a",
+    backgroundColor: "#ffffff",
+  },
+  buttonText: {
+    fontFamily: "sans-serif-light",
   }
 });
 

@@ -3,18 +3,18 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
   Dimensions,
+  BackHandler,
+  View,
 } from "react-native";
 import { storeValue, getValue } from "./storageFuncs";
 //Pages
 import MainScreen from "./pages/MainScreen";
 import ScanningScreen from "./pages/ScanningScreen";
 
-const height = Dimensions.get("window").height;
+const height = Dimensions.get("screen").height;
 const width = Dimensions.get("window").width;
+import Constants from 'expo-constants'
 
 export default function App() {
   const [lang, setLang] = useState("pl");
@@ -28,17 +28,28 @@ export default function App() {
       if (tempVal !== null) setLang(tempVal);
     }
     fetchData();
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      if (isScanning) {
+        setIsScanning(false);
+      } else {
+        return false;
+      }
+      return true;
+    });
   });
   if (!isScanning) {
     return (
       <>
-        <StatusBar style="auto" />
-        <MainScreen
-          lang={lang}
-          cardNum={cardNum}
-          setLang={setLang}
-          setIsScanning={setIsScanning}
-        />
+        <StatusBar style="light" backgroundColor={"#ff3b3b"} translucent={false} />
+
+        <View style={{ height: height - Constants.statusBarHeight }}>
+          <MainScreen
+            lang={lang}
+            cardNum={cardNum}
+            setLang={setLang}
+            setIsScanning={setIsScanning}
+          />
+        </View>
       </>
     );
   } else {
@@ -51,7 +62,7 @@ export default function App() {
           setLang={setLang}
           setIsScanning={setIsScanning}
         />
-        <StatusBar style="light" backgroundColor={"#000000"} />
+        <StatusBar style="light" backgroundColor={"#ff3b3b"} translucent={false} />
       </>
     );
   }

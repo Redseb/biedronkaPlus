@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, Dimensions, } from "react-native";
 import Barcode from "react-native-barcode-builder";
-// import CardFlip from 'react-native-card-flip'; //TODO: Uninstall this dependency
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
