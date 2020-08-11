@@ -3,9 +3,9 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
   TouchableOpacity,
   Dimensions,
+  Image
 } from "react-native";
 import { Camera } from "expo-camera";
 import { storeValue, getValue } from "../storageFuncs";
@@ -67,16 +67,13 @@ const ScanningScreen = ({
         ratio='16:9'
         style={[StyleSheet.absoluteFillObject]}
       />
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
-        <Card cardNumber={cardNum} />
-      </View>
+
+      <Image
+        style={{ height: 128, width: 256, margin: 75 }}
+        source={require('../assets/barcodeOutline.png')}
+      />
+
+      <Card cardNumber={cardNum} />
 
       <TouchableOpacity
         style={styles.button}
@@ -91,8 +88,7 @@ const ScanningScreen = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
+    alignItems: "center",
     justifyContent: "flex-end",
     backgroundColor: "#000000",
   },
@@ -106,6 +102,7 @@ const styles = StyleSheet.create({
   button: {
     height: 50,
     padding: 20,
+    paddingHorizontal: 40,
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 10,

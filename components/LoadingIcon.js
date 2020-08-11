@@ -12,7 +12,7 @@ Animated.loop(
         spinValue,
         {
             toValue: 1,
-            duration: 3000,
+            duration: 400,
             // easing: Easing.linear,
             useNativeDriver: true
         }
