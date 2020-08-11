@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera } from "expo-camera";
 import { storeValue, getValue } from "../storageFuncs";
 import Card from "../components/Card";
 
@@ -52,9 +52,10 @@ const ScanningScreen = ({
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
+      <Camera
         onBarCodeScanned={handleBarCodeScanned}
-        style={styles.barcodescanner}
+        ratio='16:9'
+        style={[StyleSheet.absoluteFillObject]}
       />
       <View
         style={{
@@ -79,9 +80,11 @@ const ScanningScreen = ({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
+    backgroundColor: "#000000",
   },
   button: {
     height: 50,
@@ -96,12 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     backgroundColor: "#f2eb8a",
-  },
-  barcodescanner: {
-    height: height,
-    width: width,
-    backgroundColor: "#ffffff",
-  },
+  }
 });
 
 export default ScanningScreen;
