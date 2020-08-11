@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image
 } from "react-native";
+import * as Animatable from 'react-native-animatable'
 import { Camera } from "expo-camera";
 import { storeValue, getValue } from "../storageFuncs";
 import Card from "../components/Card";
@@ -33,6 +34,7 @@ const ScanningScreen = ({
     if (data.length == 13) {
       setCardNum(data);
       storeValue("@cardNum", data);
+      tada();
     } else {
       alert("Hmm.. That code doesn't seem right, try again");
     }
@@ -60,6 +62,9 @@ const ScanningScreen = ({
   //   <Text style={{ fontSize: height / 20 }}>Loading</Text>
   // </View>);
 
+  let handleViewRef = ref => view = ref;
+  let tada = () => view.tada(800)
+
   return (
     <View style={styles.container}>
       <Camera
@@ -72,8 +77,9 @@ const ScanningScreen = ({
         style={{ height: 128, width: 256, margin: 75 }}
         source={require('../assets/barcodeOutline.png')}
       />
-
-      <Card cardNumber={cardNum} />
+      <Animatable.View ref={handleViewRef}>
+        <Card cardNumber={cardNum} />
+      </Animatable.View>
 
       <TouchableOpacity
         style={styles.button}
