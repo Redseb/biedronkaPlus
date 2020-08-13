@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A better \"Twoja Biedronka\" app",
+    "githubUrl": "https://github.com/Redseb/biedronkaPlus"
   }
 }

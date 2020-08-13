@@ -10,7 +10,11 @@ const gbFlag = require("../assets/GB.png");
 const ruFlag = require("../assets/RU.png");
 
 const ToggleLanguageButton = ({ lang, setLang }) => {
-    const [flag, setFlag] = useState(plFlag);
+    const [flag, setFlag] = useState(() => {
+        if (lang === 'en') return gbFlag;
+        if (lang === 'pl') return plFlag;
+        if (lang === 'ru') return ruFlag;
+    });
     return (
         <TouchableOpacity style={styles.container} onPress={() => {
             //Language toggle loop: en -> pl -> ru -> en
