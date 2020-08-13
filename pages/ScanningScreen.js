@@ -12,6 +12,7 @@ import { Camera } from "expo-camera";
 import { storeValue, getValue } from "../storageFuncs";
 import Card from "../components/Card";
 import LoadingIcon from "../components/LoadingIcon"
+import { getString } from "../translations";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -56,12 +57,7 @@ const ScanningScreen = ({
     );
   }
 
-  // return (<View style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-  //   <LoadingIcon />
-
-  //   <Text style={{ fontSize: height / 20 }}>Loading</Text>
-  // </View>);
-
+  //Card Animation
   let handleViewRef = ref => view = ref;
   let tada = () => view.tada(800)
 
@@ -85,7 +81,7 @@ const ScanningScreen = ({
         style={styles.button}
         onPress={() => setIsScanning(false)}
       >
-        <Text style={styles.buttonText}>Back</Text>
+        <Text style={styles.buttonText}>{getString(lang, 'back')}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -110,7 +106,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingHorizontal: 40,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#ff3b3b",
     borderRadius: 10,
     margin: 20,
     borderWidth: 1,
@@ -118,10 +114,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "#ffffff",
   },
   buttonText: {
     fontFamily: "sans-serif-light",
+    color: "#fff"
   }
 });
 
