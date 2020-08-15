@@ -1,16 +1,20 @@
 const plStrings = {
     updateCardInfo: "Zmień Kartę",
-    back: "Wstecz"
+    back: "Wstecz",
+    scanSuccess: "Karta Została Zeskanowana"
 }
 
 const enStrings = {
     updateCardInfo: "Change Card",
-    back: "Back"
+    back: "Back",
+    scanSuccess: "Scan Successful!"
 }
 
 const ruStrings = {
     updateCardInfo: "Сменить карту",
-    back: "назад"
+    back: "назад",
+    scanSuccess: "Карта отсканирована"
+
 }
 
 const getString = (lang, key) => {

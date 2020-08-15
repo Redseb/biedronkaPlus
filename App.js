@@ -8,6 +8,9 @@ import {
   View,
 } from "react-native";
 import { storeValue, getValue } from "./storageFuncs";
+
+import FlashMessage from "react-native-flash-message";
+
 //Pages
 import MainScreen from "./pages/MainScreen";
 import ScanningScreen from "./pages/ScanningScreen";
@@ -63,6 +66,7 @@ export default function App() {
           setIsScanning={setIsScanning}
         />
         <StatusBar style="light" backgroundColor={"#ff3b3b"} translucent={false} />
+        <FlashMessage position="top" />
       </>
     );
   }

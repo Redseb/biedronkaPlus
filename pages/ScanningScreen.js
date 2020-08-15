@@ -13,6 +13,9 @@ import { storeValue, getValue } from "../storageFuncs";
 import Card from "../components/Card";
 import LoadingIcon from "../components/LoadingIcon"
 import { getString } from "../translations";
+import { BarCodeScanner } from "expo-barcode-scanner"
+import { showMessage, hideMessage } from "react-native-flash-message";
+
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -24,6 +27,7 @@ const ScanningScreen = ({
   setIsScanning,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
+  const [scanPaused, setScanPaused] = useState(false);
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -31,13 +35,30 @@ const ScanningScreen = ({
     })();
   }, []);
 
+  async function wait(ms) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms);
+    });
+  }
+
+  const delayNextScan = async () => {
+    await wait(3000);
+    setScanPaused(false);
+  }
+
   const handleBarCodeScanned = ({ type, data }) => {
-    if (data.length == 13) {
+    if (data.length == 13 && !scanPaused && cardNum !== data) {
       setCardNum(data);
       storeValue("@cardNum", data);
       tada();
-    } else {
-      alert("Hmm.. That code doesn't seem right, try again");
+      showMessage({
+        message: getString(lang, "scanSuccess"),
+        style: { backgroundColor: "#ff3b3b" },
+        titleStyle: { fontSize: 18 },
+        icon: "success"
+      });
+      setScanPaused(true);
+      delayNextScan();
     }
   };
 
@@ -67,6 +88,9 @@ const ScanningScreen = ({
         onBarCodeScanned={handleBarCodeScanned}
         ratio='16:9'
         style={[StyleSheet.absoluteFillObject]}
+        barCodeScannerSettings={{
+          barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13],
+        }}
       />
 
       <Image

@@ -4,6 +4,12 @@ import Barcode from "react-native-barcode-builder";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+
+const barcodify = (cardNumber) => {
+  const SPACING = "     ";
+  return cardNumber.slice(0, 1) + SPACING + cardNumber.slice(1, 7) + SPACING + cardNumber.slice(7, 13);
+}
+
 const Card = ({ cardNumber, pin }) => {
   return (
     <View style={styles.container}>
@@ -11,8 +17,9 @@ const Card = ({ cardNumber, pin }) => {
       <View style={styles.bottomContainer}>
         <Barcode
           background="#ffffff"
-          text={cardNumber}
+          text={barcodify(cardNumber)}
           height={75}
+          width={2}
           style={styles.barcode}
           value={cardNumber}
           flat
@@ -41,6 +48,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  bottomContainer: {
+    flex: 1
   },
 
   cardLogo: {
